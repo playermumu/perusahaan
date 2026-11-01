@@ -1,0 +1,146 @@
+/* =====================================================
+   HAPPYTAILS – style.css
+   Warna ada di :root. Foto: taruh di folder /images
+   Perpindahan halaman memakai :target (tanpa JavaScript)
+   ===================================================== */
+:root{--bg:#f4f8fc;--card:#fff;--ink:#22304a;--muted:#62708a;--navy:#0b3b5c;--blue:#1f6fb2;--purple:#6c4cf5;--orange:#fdb03d;--yellow:#ffd23f;--line:#d9e6f3}
+@media (prefers-color-scheme:dark){:root{--bg:#111b2b;--card:#1a2a40;--ink:#f3f6fb;--muted:#aab8cc;--navy:#07263c;--line:#33496a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg) radial-gradient(var(--line) 2px,transparent 2px) 0 0/28px 28px;color:var(--ink);font-family:'Nunito',system-ui,sans-serif;line-height:1.65}
+h1,h2,h3{font-family:'Baloo 2','Nunito',sans-serif;margin:0;line-height:1.12}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+/* ---------- PERPINDAHAN HALAMAN ---------- */
+.page{display:none}
+.page:target,.page:has(:target){display:block;animation:pop .45s ease}
+main:not(:has(:target)) #home{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+
+/* ---------- NAVBAR ---------- */
+header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;border-bottom:5px solid var(--yellow)}
+.nav{display:flex;align-items:center;justify-content:space-between;min-height:62px;gap:10px;flex-wrap:wrap}
+.logo{font:800 1.6rem 'Baloo 2';display:flex;gap:6px;align-items:center}
+.logo i{font-style:normal;display:inline-block;animation:wag 1.6s ease-in-out infinite}
+@keyframes wag{50%{transform:rotate(-16deg) scale(1.1)}}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:7px 14px;border-radius:99px;font-weight:800;font-size:.92rem}
+nav a:hover{background:rgba(255,255,255,.2)}
+/* menu aktif */
+body:not(:has(main :target)) nav a[href="#home"],
+body:has(#home:target) nav a[href="#home"],
+body:has(#ras:target) nav a[href="#ras"],
+body:has(#aksesoris:target) nav a[href="#aksesoris"],
+body:has(#sejarah:target) nav a[href="#sejarah"],
+body:has(#lokasi:target) nav a[href="#lokasi"],
+body:has(#lokasi :target) nav a[href="#lokasi"]{background:var(--blue)}
+
+/* ---------- TOMBOL ---------- */
+.btn{display:inline-block;padding:12px 26px;border-radius:99px;font:800 1.05rem 'Baloo 2';border:3px solid #22304a;background:var(--orange);color:#22304a;box-shadow:0 5px 0 #22304a;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #22304a}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #22304a}
+.btn.w{background:#fff}.btn.b{background:var(--blue);color:#fff}
+
+/* ---------- HERO ---------- */
+.hero{background:linear-gradient(135deg,#0b3b5c,#0e5a8a 65%,#1f6fb2);color:#fff;padding:46px 0 84px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(2.3rem,7vw,4rem);text-shadow:4px 4px 0 rgba(0,0,0,.25)}
+.hero h1 span{display:block;color:var(--yellow)}
+.hero p{font-size:1.15rem;max-width:480px;font-weight:700}
+.hero .cta{margin-top:22px}
+.sticker{display:inline-block;background:var(--yellow);color:#22304a;font:800 1rem 'Baloo 2';padding:4px 16px;border-radius:99px;transform:rotate(-3deg);margin-bottom:14px;box-shadow:3px 3px 0 #22304a}
+.fl{position:absolute;font-size:2.2rem;opacity:.3;animation:fl 5s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-18px) rotate(15deg)}}
+.wave{display:block;width:100%;height:50px;margin-top:-49px;position:relative;z-index:2}
+.wave path{fill:var(--bg)}
+
+/* ---------- FOTO / GAMBAR ----------
+   <figure class="photo" data-label="Foto ..."><img src="images/nama.jpg" alt=""></figure>
+   Rasio: bawaan 4:3 | tambah class "sq" = 1:1 | "ban" = 21:9
+   Kotak putus-putus tampil selama gambar belum ada. */
+.photo{--r:4/3;margin:0;width:100%;aspect-ratio:var(--r);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;border:3px dashed var(--purple);border-radius:18px;background:rgba(108,76,245,.07);color:var(--purple);font:800 .85rem 'Nunito'}
+.photo::before{content:"📷 " attr(data-label)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.photo.sq{--r:1/1}.photo.ban{--r:21/9}
+.photo.blob{max-width:380px;margin:0 auto;border:6px solid #fff;border-radius:50% 46% 54% 48%/48% 54% 46% 52%;background:rgba(255,255,255,.18);color:#fff;box-shadow:10px 10px 0 rgba(0,0,0,.22)}
+.photo.round{border-radius:50%}
+
+/* ---------- SECTION, JUDUL, KARTU ---------- */
+section{padding:44px 0}
+section.tight{padding-top:10px}
+.title{text-align:center;margin:0 0 28px}
+.title h2{font-size:2.3rem;color:var(--purple)}
+.title h2 em{display:inline-block;font-style:normal;background:var(--yellow);color:#22304a;padding:0 12px;border-radius:12px;transform:rotate(-2deg)}
+.title p{max-width:620px;margin:8px auto 0;color:var(--muted);font-weight:700}
+h2.sub{text-align:center;font-size:1.8rem;color:var(--purple);margin:40px 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px}
+.grid.wide{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:4px solid #22304a;border-radius:24px;padding:14px;box-shadow:5px 5px 0 var(--c,var(--orange));transition:transform .2s}
+.card:nth-child(3n+1){--c:var(--blue)}.card:nth-child(3n+2){--c:var(--orange)}.card:nth-child(3n){--c:var(--purple)}
+.card:hover{transform:translateY(-6px) rotate(-1.2deg)}
+.card h3{font-size:1.2rem;margin:10px 0 2px}
+.card p{margin:2px 0 0;color:var(--muted);font-weight:700;font-size:.93rem}
+.card.c{text-align:center}
+.next{text-align:center;margin-top:34px}
+
+/* ---------- BERANDA ---------- */
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:-26px;position:relative;z-index:3}
+.badge{display:flex;gap:12px;align-items:center;background:var(--card);border:4px solid #22304a;border-radius:20px;padding:12px 16px;font-weight:800}
+.badge span{font-size:1.8rem}
+.badge small{display:block;color:var(--muted);font-weight:700}
+.about{display:grid;grid-template-columns:1fr 1.2fr;gap:26px;align-items:center;background:var(--card);border:4px solid #22304a;border-radius:30px;padding:26px;box-shadow:8px 8px 0 var(--orange)}
+.about h3{font-size:2rem;color:var(--blue)}
+.stats{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap}
+.stat{flex:1;min-width:92px;text-align:center;background:var(--bg);border:3px dashed var(--orange);border-radius:18px;padding:8px 14px;font-weight:800}
+.stat b{display:block;font:800 1.6rem 'Baloo 2';color:var(--purple)}
+.fav{background:var(--navy);color:#fff;border:5px solid var(--yellow);border-radius:40px;padding:30px 22px}
+.fav .title h2{color:#fff}.fav .title p{color:#c8d8e6}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.step b{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;margin-bottom:6px;border-radius:50%;background:var(--purple);color:#fff;font:800 1.4rem 'Baloo 2'}
+.strip{display:flex;gap:16px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:28px;background:var(--navy);color:#fff;border:4px solid var(--orange);border-radius:28px;padding:20px 26px}
+.strip b{font:800 1.4rem 'Baloo 2';color:var(--yellow)}
+
+/* ---------- JENIS ANJING ---------- */
+.pills{text-align:center}
+.pill{display:inline-block;margin:4px;padding:3px 14px;background:var(--card);border:3px solid #22304a;border-radius:99px;font-weight:800;font-size:.92rem}
+.pill:hover{background:var(--yellow);color:#22304a}
+
+/* ---------- KISAH KAMI ---------- */
+.timeline{max-width:720px;margin:36px auto 40px;padding-left:30px;border-left:6px dotted var(--orange)}
+.tl{position:relative;margin-bottom:22px;padding:14px 20px;background:var(--card);border:4px solid #22304a;border-radius:22px;box-shadow:5px 5px 0 var(--c,var(--blue))}
+.tl:nth-child(even){--c:var(--orange)}
+.tl::before{content:"🐾";position:absolute;left:-52px;top:10px;border-radius:50%;background:var(--bg);font-size:1.5rem}
+.tl b{font:800 1.4rem 'Baloo 2';color:var(--purple)}
+.note{display:block;margin-top:4px;color:var(--muted);font-size:.88rem;font-weight:700}
+
+/* ---------- LOKASI ---------- */
+.loc{display:grid;grid-template-columns:1fr 1.2fr;gap:24px}
+.list{display:grid;gap:10px;max-height:420px;overflow:auto;padding:4px 10px 8px 4px}
+.city{display:flex;gap:12px;align-items:center;background:var(--card);border:4px solid #22304a;border-radius:20px;padding:8px 16px}
+.city:hover{background:var(--yellow);color:#22304a}
+.city .ic{font-size:1.6rem}
+.city b{display:block}.city small{opacity:.75}
+.map{position:relative;min-height:360px;overflow:hidden;background:var(--orange);border:5px solid #22304a;border-radius:28px}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;font-size:2rem;transform:translate(-50%,-100%);transition:font-size .3s}
+.pin:hover{font-size:3rem;z-index:2}
+.details{margin-top:20px}
+.detail{display:none;background:var(--card);border:4px solid #22304a;border-radius:24px;padding:16px 22px;box-shadow:6px 6px 0 var(--purple)}
+.detail h3{color:var(--blue)}
+.detail:target{display:block}
+.details:not(:has(:target)) .detail:first-child{display:block}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:30px;padding:36px 0 22px;background:var(--navy);color:#fff;border-top:6px solid var(--yellow)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+.soc{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.soc span{padding:8px 16px;border-radius:99px;background:rgba(255,255,255,.15);font-weight:800}
+.copy{margin-top:22px;text-align:center;color:#a9c0d4;font-size:.9rem}
+
+/* ---------- MOBILE ---------- */
+@media(max-width:760px){
+  .hero-grid,.about,.loc,.foot{grid-template-columns:1fr}
+  .logo{font-size:1.3rem}
+  nav a{padding:6px 9px;font-size:.82rem}
+}
